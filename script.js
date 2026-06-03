@@ -14,6 +14,11 @@ const urlgroup = document.querySelector(".url-group");
 const namegroup = document.querySelector(".name-group");
 const purposegroup = document.querySelector(".purpose-group");
 const hometowngroup = document.querySelector(".hometown-group");
+let emr=[];
+let nr=[];
+let imp =[];
+let urg = [];
+const categoryInput = document.querySelector(".categories");
 
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
@@ -62,7 +67,12 @@ submitBtn.addEventListener("click", () => {
         alertBox.innerText = "Purpose is required";
         purposegroup.appendChild(alertBox);
     }
-   
+    if(categoryInput.querySelector('input[name="category"]:checked')==null){
+        let alertBox = document.createElement("div");
+        alertBox.classList.add("alert-box");
+        alertBox.innerText = "Please select a category";
+        categoryInput.appendChild(alertBox);
+    }
     nameInput.value = "";
     hometownInput.value = "";
     urlInput.value = "";
