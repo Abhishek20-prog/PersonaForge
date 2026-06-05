@@ -1,3 +1,26 @@
+function savetoLocal(obj) {
+  
+    if (localStorage.getItem("tasks") == null) {
+        let oldtasks = [];
+        oldtasks.push(obj);
+       localStorage.setItem("tasks", JSON.stringify(oldtasks));
+       
+       
+    
+
+    }
+    else {
+        let oldtasks = localStorage.getItem("tasks");
+        oldtasks = JSON.parse(oldtasks);
+        oldtasks.push(obj);
+        localStorage.setItem("tasks", JSON.stringify(oldtasks));
+        
+       
+        
+    
+    }
+    
+}
 const container = document.querySelector(".container");
 const actions = document.querySelector(".actions");
 const createBtn = document.querySelector("#create-btn");
@@ -19,104 +42,10 @@ const profileform = document.querySelector("#profile-form")
 let alertBox = document.createElement("div");
 const categoryRad = form.querySelectorAll("input[name='category']");
 const stack = document.querySelector(".stack")
-function cardmaker(){
-    
-    // Main card container
-const card = document.createElement("div");
-// Profile section wrapper
-const profile = document.createElement("div");
-// Profile image
-const img = document.createElement("img");
-// Information section
-const info = document.createElement("div");
-// User name heading
-const h2 = document.createElement("h2");
-// Details container
-const details = document.createElement("div");
-// First detail block (Home Town)
-const detail1 = document.createElement("div");
-// Home Town label
-const p1 = document.createElement("p");
-// Home Town value
-const span1 = document.createElement("span");
-// Second detail block (Bookings)
-const detail2 = document.createElement("div");
-// Bookings label
-const p2 = document.createElement("p");
-// Bookings value
-const span2 = document.createElement("span");
-// Buttons container
-const buttons = document.createElement("div");
-// Call button
-const callBtn = document.createElement("button");
-// Message button
-const msgBtn = document.createElement("button");
-img.src=urlInput.value;
-h2.textContent= nameInput.value;
-span1.textContent= hometownInput.value;
-p1.textContent="Home Town";
-p2.textContent="Bookings";
-callBtn.textContent="📞 Call";
-msgBtn.textContent="Message";
 
 
 
-card.appendChild(profile);
 
-profile.appendChild(img);
-profile.appendChild(info);
-
-info.appendChild(h2);
-info.appendChild(details);
-info.appendChild(buttons);
-
-details.appendChild(detail1);
-details.appendChild(detail2);
-
-detail1.appendChild(p1);
-detail1.appendChild(span1);
-
-detail2.appendChild(p2);
-detail2.appendChild(span2);
-
-buttons.appendChild(callBtn);
-buttons.appendChild(msgBtn);
-stack.appendChild(card);
-
-
-card.classList.add("card");
-profile.classList.add("profile");
-info.classList.add("info");
-details.classList.add("details");
-buttons.classList.add("buttons");
-stack.classList.add("stack");
-
-callBtn.classList.add("call");
-msgBtn.classList.add("msg");
-}
-
-function savetoLocal(obj) {
-    if (localStorage.getItem("tasks") == null) {
-        let oldtasks = [];
-        oldtasks.push(obj);
-        localStorage.setItem("tasks", JSON.stringify(oldtasks));
-       
-       
-    
-
-    }
-    else {
-        let oldtasks = localStorage.getItem("tasks");
-        oldtasks = JSON.parse(oldtasks);
-        oldtasks.push(obj);
-        localStorage.setItem("tasks", JSON.stringify(oldtasks));
-        
-       
-        
-    
-    }
-    
-}
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
     container.style.filter = "blur(5px)";
@@ -228,7 +157,10 @@ function submission() {
 
             }
         )
-        // cardmaker()
+        
+        cardmaker();
+      
+        
         profileform.reset();
 
     });
@@ -241,4 +173,92 @@ closeBtn.addEventListener("click", () => {
 
 
 });
+function cardmaker(){
+    stack.innerHTML = "";
+    let alltasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    alltasks.forEach(function(tasks){
+          // Main card container
+const card = document.createElement("div");
+// Profile section wrapper
+const profile = document.createElement("div");
+// Profile image
+const img = document.createElement("img");
+// Information section
+const info = document.createElement("div");
+// User name heading
+const h2 = document.createElement("h2");
+// Details container
+const details = document.createElement("div");
+// First detail block (Home Town)
+const detail1 = document.createElement("div");
+// Home Town label
+const p1 = document.createElement("p");
+// Home Town value
+const span1 = document.createElement("span");
+// Second detail block (Bookings)
+const detail2 = document.createElement("div");
+// Bookings label
+const p2 = document.createElement("p");
+// Bookings value
+const span2 = document.createElement("span");
+// Buttons container
+const buttons = document.createElement("div");
+// Call button
+const callBtn = document.createElement("button");
+// Message button
+const msgBtn = document.createElement("button");
+
+
+
+p1.textContent="Home Town";
+p2.textContent="Purpose";
+img.src = tasks.url;
+h2.textContent = tasks.name;
+span1.textContent = tasks.hometown;
+span2.textContent = tasks.purpose;
+callBtn.textContent="📞 Call";
+msgBtn.textContent="Message";
+
+
+
+card.appendChild(profile);
+
+profile.appendChild(img);
+profile.appendChild(info);
+
+info.appendChild(h2);
+info.appendChild(details);
+info.appendChild(buttons);
+
+details.appendChild(detail1);
+details.appendChild(detail2);
+
+detail1.appendChild(p1);
+detail1.appendChild(span1);
+
+detail2.appendChild(p2);
+detail2.appendChild(span2);
+
+buttons.appendChild(callBtn);
+buttons.appendChild(msgBtn);
+stack.appendChild(card);
+
+
+card.classList.add("card");
+profile.classList.add("profile");
+info.classList.add("info");
+details.classList.add("details");
+buttons.classList.add("buttons");
+stack.classList.add("stack");
+
+callBtn.classList.add("call");
+msgBtn.classList.add("msg");
+
+    });
+    
+  
+}
 submission();
+window.addEventListener("DOMContentLoaded", () => {
+    cardmaker();
+});
