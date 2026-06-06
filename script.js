@@ -88,7 +88,7 @@ themeBtn.addEventListener("click", () => {
 
 createBtn.addEventListener("click", () => {
     form.style.display = "block";
-    container.style.filter = "blur(5px)";
+    container.style.display = "none";
     alertBox.style.display = "none";
 
 
@@ -208,7 +208,7 @@ function submission() {
 }
 closeBtn.addEventListener("click", () => {
     form.style.display = "none";
-    container.style.filter = "blur(0)";
+    container.style.display = "flex";
     profileform.reset();
 
 
